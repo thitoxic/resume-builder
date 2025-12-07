@@ -1,0 +1,12 @@
+node_modules/
+client/node_modules/
+server/node_modules/
+/server/service-account.json
+.DS_Store
+/dist
+.env
+coverage/
+.vscode/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
