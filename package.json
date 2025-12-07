@@ -12,5 +12,8 @@
   },
   "devDependencies": {
     "concurrently": "^8.0.0"
+  },
+  "dependencies": {
+    "stream": "^0.0.3"
   }
 }

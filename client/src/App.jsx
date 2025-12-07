@@ -35,8 +35,27 @@ export default function App() {
       });
 
       const data = await res.json();
-      if (res.ok) alert(`Uploaded: ${data.fileName}`);
-      else alert(`Upload failed: ${data.error || JSON.stringify(data)}`);
+      if (res.ok) {
+        alert(`Uploaded: ${data.fileName}`);
+      } else if (data.needsAuth) {
+        // Get auth URL and open it
+        const authRes = await fetch("http://localhost:5000/auth");
+        const authData = await authRes.json();
+        if (authData.authUrl) {
+          const shouldAuth = confirm(
+            "You need to authorize Google Drive access first. Open authorization page?"
+          );
+          if (shouldAuth) {
+            window.open(authData.authUrl, "_blank");
+          }
+        } else {
+          alert(
+            "Authorization required. Please visit http://localhost:5000/auth"
+          );
+        }
+      } else {
+        alert(`Upload failed: ${data.error || JSON.stringify(data)}`);
+      }
     } catch (err) {
       alert("Export failed: " + err.message);
     }
@@ -143,10 +162,10 @@ export default function App() {
                   <div key={i}>
                     <div className="flex justify-between items-baseline mb-2">
                       <div>
-                        <div className="text-base font-medium text-slate-800">
+                        <div className="text-sm font-medium text-slate-800">
                           {edu.degree}
                         </div>
-                        <div className="text-sm text-slate-600">
+                        <div className="text-xs text-slate-600">
                           {edu.institution}
                         </div>
                       </div>

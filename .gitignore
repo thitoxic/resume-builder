@@ -3,6 +3,7 @@ client/node_modules/
 **/resume.json
 server/node_modules/
 /server/service-account.json
+/server/token.json
 .DS_Store
 /dist
 .env
